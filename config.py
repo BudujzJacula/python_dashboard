@@ -35,10 +35,14 @@ OIL_LEVEL_PATH = GRAPHICS_PATH + "oil_level.png"
 BATTERY_PATH = GRAPHICS_PATH + "battery.png"
 CHECK_ENGINE_PATH = GRAPHICS_PATH + "check_engine.png"
 
-LIMIT_LIGHT_PATH = GRAPHICS_PATH + "limit_light_grey.png"
+LIMIT_LIGHT_GREY = GRAPHICS_PATH + "limit_light_grey.png"
 LIMIT_LIGHT_GREEN = GRAPHICS_PATH + "limit_light_green.png"
 LIMIT_LIGHT_ORANGE = GRAPHICS_PATH + "limit_light_orange.png"
 LIMIT_LIGHT_RED = GRAPHICS_PATH + "limit_light_red.png"
+
+GREEN_CORDS = (200, 10)
+ORANGE_CORDS = (400, 10)
+RED_CORDS = (600, 10)
 
 '''
 features:

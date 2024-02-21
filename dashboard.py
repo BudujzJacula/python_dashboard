@@ -212,30 +212,56 @@ class DashboardGUI():
         self._draw_fuel_press_indicator(dash_vals.fuel_press)
         self._draw_battery_volt_indicator(dash_vals.battery_volt)
 
+    def _rpm_to_lights(self, rpm):
+        greens = min(max((rpm - 4000) // 400, 0), 3)
+        oranges = min(max((rpm - 5000) // 400, 0), 3)
+        reds = min(max((rpm - 6000) // 400, 0), 3)
+
+        return greens, oranges, reds
+
+    def _turn_on_light(self, lights, start_cords, image):
+        print(lights)
+        for i in range(1, lights + 1):
+            self.window.blit(image, (start_cords[0] + (i*40), start_cords[1]))
+
     def draw_limiter_lights(self, dash_vals: DashValues):
         nr_of_limit_lights = 18
-        lights = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         light_spacing = 40
         offset = 150
 
-        if dash_vals.rpm >= 4000:
-            lights[0] = 1
-            lights[17] = 1
-
-        if dash_vals.rpm >= 4000:
-            lights[0] = 1
-            lights[17] = 1
-
-        # image = pygame.image.load(config.LIMIT_LIGHT_PATH)
+        grey_light = pygame.image.load(config.LIMIT_LIGHT_GREY)
         green_light = pygame.image.load(config.LIMIT_LIGHT_GREEN)
         orange_light = pygame.image.load(config.LIMIT_LIGHT_ORANGE)
         red_light = pygame.image.load(config.LIMIT_LIGHT_RED)
 
-        print("lights: ", lights)
+        # limit lights steps:
+        # green: 4400, 4800, 5200 
+        # orange: 5600, 6000, 6400
+        # red: 6800, 7200, 7600
+        greens, oranges, reds = self._rpm_to_lights(dash_vals.rpm)
 
+        print("lights: ", greens, " ", oranges, " ", reds)
+
+        # zero out the lights
         for i in range(nr_of_limit_lights):
-            self.window.blit(green_light, (i*light_spacing + offset, 10))
+            self.window.blit(grey_light, (i*light_spacing + offset, 10))
 
+        # draw the lights
+        if not(greens):
+            return
+        else:
+            self._turn_on_light(greens, config.GREEN_CORDS, green_light)
+
+        if not(oranges):
+            return
+        else:
+            self._turn_on_light(oranges, config.ORANGE_CORDS, orange_light)
+
+        if not(reds):
+            return
+        else:
+            self._turn_on_light(reds, config.RED_CORDS, red_light)
+        # TODO: dodac mirror() do limit lights
 
     def draw_dash(self, dash_vals: DashValues):
         self.draw_limiter_lights(dash_vals)
@@ -249,7 +275,7 @@ class DashboardGUI():
 
 class OBDInterface:
     def __init__(self) -> None:
-        DashValues.rpm = 7000
+        DashValues.rpm = 8000
         DashValues.speed = 69
         DashValues.gear = 5
         DashValues.engine_temp = 85
