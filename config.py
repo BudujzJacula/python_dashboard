@@ -40,9 +40,9 @@ LIMIT_LIGHT_GREEN = GRAPHICS_PATH + "limit_light_green.png"
 LIMIT_LIGHT_ORANGE = GRAPHICS_PATH + "limit_light_orange.png"
 LIMIT_LIGHT_RED = GRAPHICS_PATH + "limit_light_red.png"
 
-GREEN_CORDS = (200, 10)
-ORANGE_CORDS = (400, 10)
-RED_CORDS = (600, 10)
+GREEN_CORDS = (110, 10)
+ORANGE_CORDS = (230, 10)
+RED_CORDS = (350, 10)
 
 '''
 features:
