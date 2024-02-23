@@ -64,10 +64,26 @@ class DashboardGUI():
         self.window.blit(text, (895, 500))
 
     def _draw_rpm_gauge(self, dash_vals: DashValues):
-        pass
+        rpm_gauge_cords = (80, 90)
+        rpm_needle_cords = (80 + 155, 90 + 120)
+
+        image = pygame.image.load(config.RPM_GAUGE_PATH)
+        self.window.blit(image, rpm_gauge_cords)
+
+        image = pygame.image.load(config.RPM_NEEDLE_PATH)
+        self.window.blit(image, rpm_needle_cords)
+
+        
     
     def _draw_speed_gauge(self, dash_vals: DashValues):
-        pass
+        speed_gauge_cords = (600, 90)
+        speed_needle_cords = (590 + 165, 90 + 150)
+        
+        image = pygame.image.load(config.SPEED_GAUGE_PATH)
+        self.window.blit(image, speed_gauge_cords)
+
+        image = pygame.image.load(config.SPEED_NEEDLE_PATH)
+        self.window.blit(image, speed_needle_cords)
     
     def _draw_speed_indicator(self, dash_vals: DashValues):
         pass

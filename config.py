@@ -17,8 +17,6 @@ BATT_VLTG_TXT = "Battery Voltage"
 
 GRAPHICS_PATH = "graphics/"
 
-NO_LIGHT = GRAPHICS_PATH + "no_light.png"
-
 RPM_GAUGE = GRAPHICS_PATH + "rpm_gauge.png" # not existing at the moment
 SPEED_GAUGE = GRAPHICS_PATH + "speed_gauge.png" # not existing at the moment 
 
@@ -39,6 +37,12 @@ LIMIT_LIGHT_GREY = GRAPHICS_PATH + "limit_light_grey.png"
 LIMIT_LIGHT_GREEN = GRAPHICS_PATH + "limit_light_green.png"
 LIMIT_LIGHT_ORANGE = GRAPHICS_PATH + "limit_light_orange.png"
 LIMIT_LIGHT_RED = GRAPHICS_PATH + "limit_light_red.png"
+
+SPEED_GAUGE_PATH = GRAPHICS_PATH + "speed_gauge.png"
+SPEED_NEEDLE_PATH = GRAPHICS_PATH + "needle_2.png"
+RPM_GAUGE_PATH = GRAPHICS_PATH + "rpm_gauge.jpg"
+RPM_NEEDLE_PATH = GRAPHICS_PATH + "rpm_needle.png"
+
 
 GREEN_CORDS = (110, 10)
 ORANGE_CORDS = (230, 10)
