@@ -20,7 +20,7 @@ class DashValues:
     battery_volt: int = 0
     low_beam_light: bool = False
     high_beam_light: bool = False
-    breaks_warn: bool = False
+    brakes_warn: bool = False
     low_oil_press_warn: bool = False
     low_battery_volt_warn: bool = False
     check_engine_warn: bool = False
@@ -75,91 +75,89 @@ class DashboardGUI():
         self.window.blit(text, (895, 500))
 
     def rotatePivoted(self, image, angle, pivot):
-    # rotate the leg image around the pivot
         rotated_image = pygame.transform.rotate(image, angle)
         rect = rotated_image.get_rect()
         rect.center = pivot
         return rotated_image, rect
 
-    def _draw_rpm_gauge(self, rpm: DashValues):
+    def _draw_rpm_gauge(self, rpm: DashValues.rpm):
         rpm_gauge_cords = (80, 90)
-        rpm_needle_cords = (80 + 155, 90 + 120)
+        rpm_needle_cords = (260, 280)
         rpm_zero_offset = 193
         rpm_angle = rpm_zero_offset - (rpm / 30)
-        rpm_zero_pivot = (260, 280)
-        # rpm_zero_pivot = (512, 256)
 
         image = pygame.image.load(config.RPM_GAUGE_PATH)
         self.window.blit(image, rpm_gauge_cords)
 
         image = pygame.image.load(config.RPM_NEEDLE_PATH)
-        # image = pygame.transform.rotate(image, rpm_zero_offset)
-        # image_rect = image.get_rect(topleft=rpm_needle_cords)
-        rotated_image, rect = self.rotatePivoted(image, rpm_angle, rpm_zero_pivot)
+        rotated_image, rect = self.rotatePivoted(image, rpm_angle, rpm_needle_cords)
         self.window.blit(rotated_image, rect)
     
-    def _draw_speed_gauge(self, dash_vals: DashValues):
+    def _draw_speed_gauge(self, speed: DashValues.speed):
         speed_gauge_cords = (600, 90)
-        speed_needle_cords = (590 + 165, 90 + 150)
+        speed_needle_cords = (782, 268)
+        speed_zero_offset = -131
+        speed_angle = speed_zero_offset - (speed / 26.6)
         
         image = pygame.image.load(config.SPEED_GAUGE_PATH)
         self.window.blit(image, speed_gauge_cords)
 
         image = pygame.image.load(config.SPEED_NEEDLE_PATH)
-        self.window.blit(image, speed_needle_cords)
+        rotated_image, rect = self.rotatePivoted(image, speed_angle, speed_needle_cords)
+        self.window.blit(rotated_image, rect)
     
-    def _draw_speed_indicator(self, dash_vals: DashValues):
+    def _draw_speed_indicator(self, speed: DashValues.speed):
         pass
     
-    def draw_gear_idicator(self, dash_vals: DashValues):
+    def draw_gear_idicator(self, gear: DashValues.gear):
         font = pygame.font.Font(config.FONT_NAME, 100)
 
         gear_text = str(DashValues.gear)
         text = font.render(gear_text, 0, "white")
         self.window.blit(text, (500, 200))
     
-    def _draw_engine_temp_gauge(self, dash_vals: DashValues):
+    def _draw_engine_temp_gauge(self, engine_temp: DashValues.engine_temp):
         pass
     
-    def _draw_fuel_level_gauge(self, dash_vals: DashValues):
+    def _draw_fuel_level_gauge(self, fuel_level: DashValues.fuel_level):
         pass
     
-    def _draw_throttle_pos_indicator(self, throttle_pos: int):
+    def _draw_throttle_pos_indicator(self, throttle_pos: DashValues.throttle_pos):
         throttle_pos_text = str(throttle_pos)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(throttle_pos_text, 0, "white")
         self.window.blit(text, (65, 530))
 
-    def _draw_oil_temp_indicator(self, oil_temp: int):
+    def _draw_oil_temp_indicator(self, oil_temp: DashValues.oil_temp):
         oil_temp_text = str(oil_temp)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(oil_temp_text, 0, "white")
         self.window.blit(text, (235, 530))
 
-    def _draw_oil_press_indicator(self, oil_press: int):
+    def _draw_oil_press_indicator(self, oil_press: DashValues.oil_press):
         oil_press_text = str(oil_press)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(oil_press_text, 0, "white")
         self.window.blit(text, (391, 530))
 
-    def _draw_coolant_temp_indicator(self, coolant_temp: int):
+    def _draw_coolant_temp_indicator(self, coolant_temp: DashValues.coolant_temp):
         coolant_temp_text = str(coolant_temp)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(coolant_temp_text, 0, "white")
         self.window.blit(text, (590, 530))
 
-    def _draw_fuel_press_indicator(self, fuel_press: int):
+    def _draw_fuel_press_indicator(self, fuel_press: DashValues.fuel_press):
         fuel_press_text = str(fuel_press)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(fuel_press_text, 0, "white")
         self.window.blit(text, (755, 530))
 
-    def _draw_battery_volt_indicator(self, battery_volt: float):
+    def _draw_battery_volt_indicator(self, battery_volt: DashValues.battery_volt):
         battery_volt_text = str(battery_volt)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
@@ -175,42 +173,42 @@ class DashboardGUI():
         self._draw_speed_gauge(dash_vals.speed)
         self._draw_speed_indicator(dash_vals.speed)
 
-    def _draw_low_beam_light(self, low_beam_light: bool):
+    def _draw_low_beam_light(self, low_beam_light: DashValues.low_beam_light):
         if low_beam_light:
             image = pygame.image.load(config.LOW_BEAM_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
         self.window.blit(image, (470, 320))
 
-    def _draw_high_beam_light(self, high_beam_light: bool):
+    def _draw_high_beam_light(self, high_beam_light: DashValues.high_beam_light):
         if high_beam_light:
             image = pygame.image.load(config.HIGH_BEAM_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
         self.window.blit(image, (530, 320))
 
-    def _draw_brake_light(self, brakes_warn: bool):
+    def _draw_brake_light(self, brakes_warn: DashValues.brakes_warn):
         if brakes_warn:
             image = pygame.image.load(config.BRAKE_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
         self.window.blit(image, (470, 360))
 
-    def _draw_oil_level_light(self, low_oil_press_warn: bool):
+    def _draw_oil_level_light(self, low_oil_press_warn: DashValues.low_oil_press_warn):
         if low_oil_press_warn:
             image = pygame.image.load(config.OIL_LEVEL_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
         self.window.blit(image, (530, 360))
 
-    def _draw_battery_light(self, battery_volt_warn: bool):
+    def _draw_battery_light(self, battery_volt_warn: DashValues.low_battery_volt_warn):
         if battery_volt_warn:
             image = pygame.image.load(config.BATTERY_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
         self.window.blit(image, (470, 400))
 
-    def _draw_check_engine(self, check_engine_warn: bool):
+    def _draw_check_engine(self, check_engine_warn: DashValues.check_engine_warn):
         if check_engine_warn:
             image = pygame.image.load(config.CHECK_ENGINE_PATH)
         else:
@@ -220,24 +218,26 @@ class DashboardGUI():
     def draw_warning_lights(self, dash_vals: DashValues):
         self._draw_low_beam_light(dash_vals.low_beam_light)
         self._draw_high_beam_light(dash_vals.high_beam_light)
-        self._draw_brake_light(dash_vals.breaks_warn)
+        self._draw_brake_light(dash_vals.brakes_warn)
         self._draw_oil_level_light(dash_vals.low_oil_press_warn)
         self._draw_battery_light(dash_vals.low_battery_volt_warn)
         self._draw_check_engine(dash_vals.check_engine_warn)
 
-    def _draw_left_blinker(self, left_blinker: bool):
+    def _draw_left_blinker(self, left_blinker: DashValues.left_blinker):
+        left_blinker_offset = 30
         if left_blinker:
             image = pygame.image.load(config.LEFT_BLINKER_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
-        self.window.blit(image, (512-30, 100))
+        self.window.blit(image, (512 - left_blinker_offset, 100))
 
-    def _draw_right_blinker(self, right_blinker: bool):
+    def _draw_right_blinker(self, right_blinker: DashValues.right_blinker):
+        right_blinker_offset = 30
         if right_blinker:
             image = pygame.image.load(config.RIGHT_BLINKER_PATH)
         else:
             image = pygame.image.load(config.NO_LIGHT)
-        self.window.blit(image, (512+30, 100))
+        self.window.blit(image, (512 + right_blinker_offset, 100))
 
     def draw_blinkers(self, dash_vals: DashValues):
         self._draw_left_blinker(dash_vals.left_blinker)
@@ -251,7 +251,7 @@ class DashboardGUI():
         self._draw_fuel_press_indicator(dash_vals.fuel_press)
         self._draw_battery_volt_indicator(dash_vals.battery_volt)
 
-    def _rpm_to_lights(self, rpm):
+    def _rpm_to_lights(self, rpm: DashValues.rpm):
         greens = min(max((rpm - 4000) // 400, 0), 3)
         oranges = min(max((rpm - 5000) // 400, 0), 3)
         reds = min(max((rpm - 6000) // 400, 0), 3)
@@ -263,7 +263,7 @@ class DashboardGUI():
         for i in range(1, lights + 1):
             self.window.blit(image, (start_cords[0] + (i*40), start_cords[1]))
 
-    def draw_limiter_lights(self, dash_vals: DashValues):
+    def draw_limiter_lights(self, rpm: DashValues.rpm):
         nr_of_limit_lights = 18
         light_spacing = 40
         offset = 150
@@ -274,12 +274,12 @@ class DashboardGUI():
         red_light = pygame.image.load(config.LIMIT_LIGHT_RED)
 
         # limit lights steps:
-        # green: 4400, 4800, 5200 
+        # green: 4400, 4800, 5200
         # orange: 5600, 6000, 6400
         # red: 6800, 7200, 7600
-        greens, oranges, reds = self._rpm_to_lights(dash_vals.rpm)
+        greens, oranges, reds = self._rpm_to_lights(rpm)
 
-        print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, dash_vals.rpm, "angle: ", dash_vals.rpm / 50)
+        print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, rpm, "angle: ", rpm / 50)
 
         # zero out the lights
         for i in range(nr_of_limit_lights):
@@ -303,8 +303,8 @@ class DashboardGUI():
         # TODO: dodac mirror() do limit lights
 
     def draw_dash(self, dash_vals: DashValues):
-        self.draw_limiter_lights(dash_vals)
-        self.draw_gear_idicator(dash_vals)
+        self.draw_limiter_lights(dash_vals.rpm)
+        self.draw_gear_idicator(dash_vals.gear)
         self.draw_left_gauge(dash_vals)
         self.draw_right_gauge(dash_vals)
         self.draw_diag_idicators(dash_vals)
@@ -314,7 +314,7 @@ class DashboardGUI():
 
 class OBDInterface:
     def __init__(self) -> None:
-        DashValues.rpm = 8000
+        DashValues.rpm = 0
         DashValues.speed = 69
         DashValues.gear = 5
         DashValues.engine_temp = 85
@@ -327,7 +327,7 @@ class OBDInterface:
         DashValues.battery_volt = 14.5
         DashValues.low_beam_light = True
         DashValues.high_beam_light = True
-        DashValues.breaks_warn = True
+        DashValues.brakes_warn = True
         DashValues.low_oil_press_warn = True
         DashValues.low_battery_volt_warn = True
         DashValues.check_engine_warn = True

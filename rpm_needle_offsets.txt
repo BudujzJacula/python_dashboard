@@ -1,3 +1,4 @@
+rpm needle:
 140x91
 
 od srodka do prawej: 114
@@ -11,3 +12,30 @@ dorysowac z dolu: 40
 nowy obrazek:
 140+88=228
 91+40=131
+
+
+
+srodek:
+228/2=114
+131//2=65
+
+speed needle:
+195x57
+
+od srodka do prawej: 167
+od srodka do lewej: 28
+od srodka do gory: 40
+od srodka do dolu: 17
+
+dorysowac z lewej: 139
+dorysowac z dolu: 23
+
+nowy obrazek:
+195+139=334
+57+23=80
+
+
+
+srodek:
+334/2=167
+80/2=40
