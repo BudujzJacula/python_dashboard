@@ -1,0 +1,13 @@
+140x91
+
+od srodka do prawej: 114
+od srodka do lewej: 26
+od srodka do gory: 65
+od srodka do dolu: 25
+
+dorysowac z lewej: 88
+dorysowac z dolu: 40
+
+nowy obrazek:
+140+88=228
+91+40=131

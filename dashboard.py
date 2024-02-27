@@ -38,6 +38,17 @@ class DashboardGUI():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+
+    def _check_arrow_keys(self):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                DashValues.rpm += 400
+                if DashValues.rpm > 8000:
+                    DashValues.rpm = 8000
+            if event.key == pygame.K_DOWN:
+                DashValues.rpm -= 400
+                if DashValues.rpm < 0:
+                    DashValues.rpm = 0
     
     def _print_background(self):
         font = pygame.font.Font(config.FONT_NAME, 16)
@@ -63,17 +74,29 @@ class DashboardGUI():
         text = font.render(str(config.BATT_VLTG_TXT), 0, "white")
         self.window.blit(text, (895, 500))
 
-    def _draw_rpm_gauge(self, dash_vals: DashValues):
+    def rotatePivoted(self, image, angle, pivot):
+    # rotate the leg image around the pivot
+        rotated_image = pygame.transform.rotate(image, angle)
+        rect = rotated_image.get_rect()
+        rect.center = pivot
+        return rotated_image, rect
+
+    def _draw_rpm_gauge(self, rpm: DashValues):
         rpm_gauge_cords = (80, 90)
         rpm_needle_cords = (80 + 155, 90 + 120)
+        rpm_zero_offset = 193
+        rpm_angle = rpm_zero_offset - (rpm / 30)
+        rpm_zero_pivot = (260, 280)
+        # rpm_zero_pivot = (512, 256)
 
         image = pygame.image.load(config.RPM_GAUGE_PATH)
         self.window.blit(image, rpm_gauge_cords)
 
         image = pygame.image.load(config.RPM_NEEDLE_PATH)
-        self.window.blit(image, rpm_needle_cords)
-
-        
+        # image = pygame.transform.rotate(image, rpm_zero_offset)
+        # image_rect = image.get_rect(topleft=rpm_needle_cords)
+        rotated_image, rect = self.rotatePivoted(image, rpm_angle, rpm_zero_pivot)
+        self.window.blit(rotated_image, rect)
     
     def _draw_speed_gauge(self, dash_vals: DashValues):
         speed_gauge_cords = (600, 90)
@@ -256,7 +279,7 @@ class DashboardGUI():
         # red: 6800, 7200, 7600
         greens, oranges, reds = self._rpm_to_lights(dash_vals.rpm)
 
-        print("lights: ", greens, " ", oranges, " ", reds)
+        print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, dash_vals.rpm, "angle: ", dash_vals.rpm / 50)
 
         # zero out the lights
         for i in range(nr_of_limit_lights):
@@ -318,6 +341,7 @@ if __name__ == "__main__":
     while True:
         for event in pygame.event.get():
             dashboard._check_quit()
+            dashboard._check_arrow_keys()
         dashboard._print_background()
         dashboard.draw_dash(DashValues)
         pygame.display.update()
