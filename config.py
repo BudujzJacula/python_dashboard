@@ -26,6 +26,7 @@ RIGHT_BLINKER_PATH = GRAPHICS_PATH + "blinker_right.png"
 FUEL_LVL_PATH = GRAPHICS_PATH + "fuel_level.png"
 ENGINE_TEMP_PATH = GRAPHICS_PATH + "engine_temp.png"
 
+NO_LIGHT_PATH = GRAPHICS_PATH + "no_light.png"
 LOW_BEAM_PATH = GRAPHICS_PATH + "low_beams.png"
 HIGH_BEAM_PATH = GRAPHICS_PATH + "high_beams.png"
 BRAKE_PATH = GRAPHICS_PATH + "brakes.png"

@@ -49,6 +49,148 @@ class DashboardGUI():
                 DashValues.rpm -= 400
                 if DashValues.rpm < 0:
                     DashValues.rpm = 0
+
+    def _check_keyboard(self):
+        '''
+        DashValues.rpm = 0
+        DashValues.speed = 69
+        DashValues.gear = 5
+        DashValues.engine_temp = 85
+        DashValues.fuel_level = 80
+        DashValues.throttle_pos = 100
+        DashValues.oil_temp = 90
+        DashValues.oil_press = 60
+        DashValues.coolant_temp = 86
+        DashValues.fuel_press = 55
+        DashValues.battery_volt = 14.5
+        DashValues.low_beam_light = True
+        DashValues.high_beam_light = True
+        DashValues.brakes_warn = True
+        DashValues.low_oil_press_warn = True
+        DashValues.low_battery_volt_warn = True
+        DashValues.check_engine_warn = True
+        DashValues.left_blinker = True
+        DashValues.right_blinker = True
+        '''
+        if event.type == pygame.KEYDOWN:
+            # numbers:
+            if event.key == pygame.K_a:
+                DashValues.rpm += 400
+                if DashValues.rpm > 8000:
+                    DashValues.rpm = 8000
+                print("rpm: ", DashValues.rpm)
+            if event.key == pygame.K_z:
+                DashValues.rpm -= 400
+                if DashValues.rpm < 0:
+                    DashValues.rpm = 0
+                print("rpm: ", DashValues.rpm)
+
+            if event.key == pygame.K_s:
+                DashValues.speed += 10
+                if DashValues.speed > 200:
+                    DashValues.speed = 200
+                print("speed: ", DashValues.speed)
+            if event.key == pygame.K_x:
+                DashValues.speed -= 10
+                if DashValues.speed < 0:
+                    DashValues.speed = 0
+                print("speed: ", DashValues.speed)
+
+            if event.key == pygame.K_d:
+                DashValues.gear += 1
+                if DashValues.gear > 6:
+                    DashValues.gear = 6
+                print("gear: ", DashValues.gear)
+            if event.key == pygame.K_c:
+                DashValues.gear -= 1
+                if DashValues.gear < 0:
+                    DashValues.gear = 0
+                print("gear: ", DashValues.gear)
+            
+            if event.key == pygame.K_f:
+                DashValues.engine_temp += 10
+                if DashValues.engine_temp > 130:
+                    DashValues.engine_temp = 130
+                print("engine_temp: ", DashValues.engine_temp)
+            if event.key == pygame.K_v:
+                DashValues.engine_temp-= 10
+                if DashValues.engine_temp < 0:
+                    DashValues.engine_temp= 0
+                print("engine_temp: ", DashValues.engine_temp)
+            
+            if event.key == pygame.K_g:
+                DashValues.fuel_level += 10
+                if DashValues.fuel_level > 100:
+                    DashValues.fuel_level = 100
+                print("fuel_level: ", DashValues.fuel_level)
+            if event.key == pygame.K_b:
+                DashValues.fuel_level -= 10
+                if DashValues.fuel_level < 0:
+                    DashValues.fuel_level = 0
+                print("fuel_level: ", DashValues.fuel_level)
+            
+            if event.key == pygame.K_h:
+                DashValues.oil_press += 10
+                if DashValues.oil_press > 100:
+                    DashValues.oil_press = 100
+                print("oil_press: ", DashValues.oil_press)
+            if event.key == pygame.K_n:
+                DashValues.oil_press -= 10
+                if DashValues.oil_press < 0:
+                    DashValues.oil_press = 0
+                print("oil_press: ", DashValues.oil_press)
+
+            if event.key == pygame.K_j:
+                DashValues.coolant_temp += 10
+                if DashValues.coolant_temp > 150:
+                    DashValues.coolant_temp = 150
+                print("coolant_temp: ", DashValues.coolant_temp)
+            if event.key == pygame.K_m:
+                DashValues.coolant_temp -= 10
+                if DashValues.coolant_temp < 0:
+                    DashValues.coolant_temp = 0
+                print("coolant_temp: ", DashValues.coolant_temp)
+            
+            if event.key == pygame.K_k:
+                DashValues.fuel_press += 10
+                if DashValues.fuel_press > 100:
+                    DashValues.fuel_press = 100
+                print("fuel_press: ", DashValues.fuel_press)
+            if event.key == pygame.K_COMMA:
+                DashValues.fuel_press -= 10
+                if DashValues.fuel_press < 0:
+                    DashValues.fuel_press = 0
+                print("fuel_press: ", DashValues.fuel_press)
+            
+            if event.key == pygame.K_l:
+                DashValues.battery_volt += 1
+                if DashValues.battery_volt > 15:
+                    DashValues.battery_volt = 15
+                print("battery_volt: ", DashValues.battery_volt)
+            if event.key == pygame.K_PERIOD:
+                DashValues.battery_volt -= 1
+                if DashValues.battery_volt < 0:
+                    DashValues.battery_volt = 0
+                print("battery_volt: ", DashValues.battery_volt)
+
+            # bools:
+            if event.key == pygame.K_q:
+                DashValues.low_beam_light = not(DashValues.low_beam_light)
+            if event.key == pygame.K_w:
+                DashValues.high_beam_light = not(DashValues.high_beam_light)
+            if event.key == pygame.K_e:
+                DashValues.brakes_warn = not(DashValues.brakes_warn)
+            if event.key == pygame.K_r:
+                DashValues.low_oil_press_warn = not(DashValues.low_oil_press_warn)
+            if event.key == pygame.K_t:
+                DashValues.low_battery_volt_warn = not(DashValues.low_battery_volt_warn)
+            if event.key == pygame.K_y:
+                DashValues.check_engine_warn = not(DashValues.check_engine_warn)
+            if event.key == pygame.K_u:
+                DashValues.left_blinker = not(DashValues.left_blinker)
+            if event.key == pygame.K_i:
+                DashValues.right_blinker = not(DashValues.right_blinker)
+
     
     def _print_background(self):
         font = pygame.font.Font(config.FONT_NAME, 16)
@@ -177,42 +319,42 @@ class DashboardGUI():
         if low_beam_light:
             image = pygame.image.load(config.LOW_BEAM_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (470, 320))
 
     def _draw_high_beam_light(self, high_beam_light: DashValues.high_beam_light):
         if high_beam_light:
             image = pygame.image.load(config.HIGH_BEAM_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (530, 320))
 
     def _draw_brake_light(self, brakes_warn: DashValues.brakes_warn):
         if brakes_warn:
             image = pygame.image.load(config.BRAKE_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (470, 360))
 
     def _draw_oil_level_light(self, low_oil_press_warn: DashValues.low_oil_press_warn):
         if low_oil_press_warn:
             image = pygame.image.load(config.OIL_LEVEL_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (530, 360))
 
     def _draw_battery_light(self, battery_volt_warn: DashValues.low_battery_volt_warn):
         if battery_volt_warn:
             image = pygame.image.load(config.BATTERY_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (470, 400))
 
     def _draw_check_engine(self, check_engine_warn: DashValues.check_engine_warn):
         if check_engine_warn:
             image = pygame.image.load(config.CHECK_ENGINE_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (530, 400))
 
     def draw_warning_lights(self, dash_vals: DashValues):
@@ -228,7 +370,7 @@ class DashboardGUI():
         if left_blinker:
             image = pygame.image.load(config.LEFT_BLINKER_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (512 - left_blinker_offset, 100))
 
     def _draw_right_blinker(self, right_blinker: DashValues.right_blinker):
@@ -236,7 +378,7 @@ class DashboardGUI():
         if right_blinker:
             image = pygame.image.load(config.RIGHT_BLINKER_PATH)
         else:
-            image = pygame.image.load(config.NO_LIGHT)
+            image = pygame.image.load(config.NO_LIGHT_PATH)
         self.window.blit(image, (512 + right_blinker_offset, 100))
 
     def draw_blinkers(self, dash_vals: DashValues):
@@ -279,7 +421,7 @@ class DashboardGUI():
         # red: 6800, 7200, 7600
         greens, oranges, reds = self._rpm_to_lights(rpm)
 
-        print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, rpm, "angle: ", rpm / 50)
+        # print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, rpm, "angle: ", rpm / 50)
 
         # zero out the lights
         for i in range(nr_of_limit_lights):
@@ -314,25 +456,26 @@ class DashboardGUI():
 
 class OBDInterface:
     def __init__(self) -> None:
-        DashValues.rpm = 0
-        DashValues.speed = 69
-        DashValues.gear = 5
-        DashValues.engine_temp = 85
-        DashValues.fuel_level = 80
-        DashValues.throttle_pos = 100
-        DashValues.oil_temp = 90
-        DashValues.oil_press = 60
-        DashValues.coolant_temp = 86
-        DashValues.fuel_press = 55
-        DashValues.battery_volt = 14.5
-        DashValues.low_beam_light = True
-        DashValues.high_beam_light = True
-        DashValues.brakes_warn = True
-        DashValues.low_oil_press_warn = True
-        DashValues.low_battery_volt_warn = True
-        DashValues.check_engine_warn = True
-        DashValues.left_blinker = True
-        DashValues.right_blinker = True
+        # DashValues.rpm = 0
+        # DashValues.speed = 69
+        # DashValues.gear = 5
+        # DashValues.engine_temp = 85
+        # DashValues.fuel_level = 80
+        # DashValues.throttle_pos = 100
+        # DashValues.oil_temp = 90
+        # DashValues.oil_press = 60
+        # DashValues.coolant_temp = 86
+        # DashValues.fuel_press = 55
+        # DashValues.battery_volt = 14.5
+        # DashValues.low_beam_light = True
+        # DashValues.high_beam_light = True
+        # DashValues.brakes_warn = True
+        # DashValues.low_oil_press_warn = True
+        # DashValues.low_battery_volt_warn = True
+        # DashValues.check_engine_warn = True
+        # DashValues.left_blinker = True
+        # DashValues.right_blinker = True
+        pass
 
 if __name__ == "__main__":
     dashboard = DashboardGUI()
@@ -342,6 +485,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             dashboard._check_quit()
             dashboard._check_arrow_keys()
+            dashboard._check_keyboard()
         dashboard._print_background()
         dashboard.draw_dash(DashValues)
         pygame.display.update()
