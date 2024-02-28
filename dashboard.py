@@ -150,6 +150,28 @@ class DashboardGUI():
                 if DashValues.coolant_temp < 0:
                     DashValues.coolant_temp = 0
                 print("coolant_temp: ", DashValues.coolant_temp)
+
+            if event.key == pygame.K_SEMICOLON:
+                DashValues.throttle_pos += 10
+                if DashValues.throttle_pos > 150:
+                    DashValues.throttle_pos = 150
+                print("throttle_pos: ", DashValues.throttle_pos)
+            if event.key == pygame.K_SLASH:
+                DashValues.throttle_pos -= 10
+                if DashValues.throttle_pos < 0:
+                    DashValues.throttle_pos = 0
+                print("throttle_pos: ", DashValues.throttle_pos)
+
+            if event.key == pygame.K_o:
+                DashValues.oil_temp += 10
+                if DashValues.oil_temp > 150:
+                    DashValues.oil_temp = 150
+                print("oil_temp: ", DashValues.oil_temp)
+            if event.key == pygame.K_p:
+                DashValues.oil_temp -= 10
+                if DashValues.oil_temp < 0:
+                    DashValues.oil_temp = 0
+                print("oil_temp: ", DashValues.oil_temp)
             
             if event.key == pygame.K_k:
                 DashValues.fuel_press += 10
@@ -193,6 +215,9 @@ class DashboardGUI():
 
     
     def _print_background(self):
+        # black background
+        self.window.fill((0, 0, 0))
+
         font = pygame.font.Font(config.FONT_NAME, 16)
 
         text = font.render(str(config.GEAR_TXT), 0, "white")
