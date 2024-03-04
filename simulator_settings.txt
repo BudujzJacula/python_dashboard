@@ -1,0 +1,11 @@
+emulator.answer['AT_R_VOLT'] = '<writeln>14.05V</writeln>'
+test atrv
+
+emulator.answer['RPM'] = '<header>7E8</header><size>04</size><subd>41 0C</subd><eval>"%.4X" % int(4 * 500)</eval><space /><writeln />'
+test 010c
+
+emulator.answer['SPEED'] = '<header>7E8</header><size>02</size><subd>41 0D</subd><eval>"%.2X" % 60</eval><space /><writeln />'emulator.answer['SPEED']='<writeln>69.96</writeln>'
+test 010d
+
+emulator.answer['SPEED']='<writeln>NO DATA</writeln>'
+emulator.answer['RPM']='<writeln>NO DATA</writeln>'
