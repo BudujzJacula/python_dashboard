@@ -40,15 +40,16 @@ class DashboardGUI():
             quit()
 
     def _check_arrow_keys(self):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                DashValues.rpm += 400
-                if DashValues.rpm > 8000:
-                    DashValues.rpm = 8000
-            if event.key == pygame.K_DOWN:
-                DashValues.rpm -= 400
-                if DashValues.rpm < 0:
-                    DashValues.rpm = 0
+        pass
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_UP:
+        #         DashValues.rpm += 400
+        #         if DashValues.rpm > 8000:
+        #             DashValues.rpm = 8000
+        #     if event.key == pygame.K_DOWN:
+        #         DashValues.rpm -= 400
+        #         if DashValues.rpm < 0:
+        #             DashValues.rpm = 0
 
     def _check_keyboard(self):
         '''
@@ -264,18 +265,18 @@ class DashboardGUI():
         speed_gauge_cords = (600, 90)
         speed_needle_cords = (782, 268)
         speed_zero_offset = -131
-        speed_angle = speed_zero_offset - (speed / 26.6)
-        
+        speed_angle = speed_zero_offset - (speed * 1.5)
+
         image = pygame.image.load(config.SPEED_GAUGE_PATH)
         self.window.blit(image, speed_gauge_cords)
 
         image = pygame.image.load(config.SPEED_NEEDLE_PATH)
         rotated_image, rect = self.rotatePivoted(image, speed_angle, speed_needle_cords)
         self.window.blit(rotated_image, rect)
-    
+
     def _draw_speed_indicator(self, speed: DashValues.speed):
         pass
-    
+
     def draw_gear_idicator(self, gear: DashValues.gear):
         font = pygame.font.Font(config.FONT_NAME, 100)
 
@@ -426,7 +427,7 @@ class DashboardGUI():
         return greens, oranges, reds
 
     def _turn_on_light(self, lights, start_cords, image):
-        print(lights)
+        # print(lights)
         for i in range(1, lights + 1):
             self.window.blit(image, (start_cords[0] + (i*40), start_cords[1]))
 
