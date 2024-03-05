@@ -8,17 +8,16 @@ ENGINE_TEMP_TXT = "Engine Temperature"
 GEAR_TXT = "Gear"
 SPEED_TXT = "Speed"
 
-THRTTL_POS_TXT = "Throttle Position"
-OIL_TEMP_TXT = "Oil Temperature"
-OIL_PRESS_TXT = "Oil Pressure"
+# throttle actuator, throttle position, engine load, coolant temp, intake temp/intake pressure, battery voltage
+THRTTL_POS_TXT = "Throttle Actuator"
+THROTTLE_POS = "Throttle Position"
+ENGINE_LOAD = "Engine Load"
 COOLANT_TEMP_TXT = "Coolant Temperature"
-FUEL_PRESS_TXT = "Fuel Pressure"
+INTAKE_TEMP = "Intake Temperature"
+INTAKE_PRESS = "Intake Pressure"
 BATT_VLTG_TXT = "Battery Voltage"
 
 GRAPHICS_PATH = "graphics/"
-
-RPM_GAUGE = GRAPHICS_PATH + "rpm_gauge.png" # not existing at the moment
-SPEED_GAUGE = GRAPHICS_PATH + "speed_gauge.png" # not existing at the moment 
 
 LEFT_BLINKER_PATH = GRAPHICS_PATH + "blinker_left.png"
 RIGHT_BLINKER_PATH = GRAPHICS_PATH + "blinker_right.png"
@@ -43,7 +42,8 @@ SPEED_GAUGE_PATH = GRAPHICS_PATH + "speed_gauge.png"
 SPEED_NEEDLE_PATH = GRAPHICS_PATH + "needle_2.png"
 RPM_GAUGE_PATH = GRAPHICS_PATH + "rpm_gauge.jpg"
 RPM_NEEDLE_PATH = GRAPHICS_PATH + "rpm_needle.png"
-
+TEMP_GAUGE_PATH = GRAPHICS_PATH + "temp_gauge.png"
+TEMP_NEEDLE_PATH = GRAPHICS_PATH + "temp_needle.png"
 
 GREEN_CORDS = (110, 10)
 ORANGE_CORDS = (230, 10)

@@ -10,14 +10,18 @@ class DashValues:
     rpm: int = 0
     speed: int = 0
     gear: int = 0
-    engine_temp: int = 0
+    # engine_temp: int = 0 # engine temp is coolant temp
     fuel_level: int = 0
+    throttle_actuator: int = 0
     throttle_pos: int = 0
-    oil_temp: int = 0
-    oil_press: int = 0
     coolant_temp: int = 0
-    fuel_press: int = 0
+    engine_load: int = 0
+    intake_temp: int = 0
+    intake_press: int = 0
     battery_volt: int = 0
+    intake_temp: int = 0
+    intake_press: int = 0
+    engine_load: int = 0
     low_beam_light: bool = False
     high_beam_light: bool = False
     brakes_warn: bool = False
@@ -109,48 +113,48 @@ class DashboardGUI():
                 print("gear: ", DashValues.gear)
             
             if event.key == pygame.K_f:
-                DashValues.engine_temp += 10
-                if DashValues.engine_temp > 130:
-                    DashValues.engine_temp = 130
-                print("engine_temp: ", DashValues.engine_temp)
+                DashValues.coolant_temp += 5
+                if DashValues.intake_temp > 130:
+                    DashValues.intake_temp = 130
+                print("coolant_temp: ", DashValues.intake_temp)
             if event.key == pygame.K_v:
-                DashValues.engine_temp-= 10
-                if DashValues.engine_temp < 0:
-                    DashValues.engine_temp= 0
-                print("engine_temp: ", DashValues.engine_temp)
+                DashValues.intake_temp-= 5
+                if DashValues.intake_temp < 0:
+                    DashValues.intake_temp = 0
+                print("coolant_temp: ", DashValues.intake_temp)
             
             if event.key == pygame.K_g:
-                DashValues.fuel_level += 10
-                if DashValues.fuel_level > 100:
-                    DashValues.fuel_level = 100
-                print("fuel_level: ", DashValues.fuel_level)
+                DashValues.intake_press += 10
+                if DashValues.intake_press > 100:
+                    DashValues.intake_press = 100
+                print("intake_press: ", DashValues.intake_press)
             if event.key == pygame.K_b:
-                DashValues.fuel_level -= 10
-                if DashValues.fuel_level < 0:
-                    DashValues.fuel_level = 0
-                print("fuel_level: ", DashValues.fuel_level)
+                DashValues.intake_press -= 10
+                if DashValues.intake_press < 0:
+                    DashValues.intake_press = 0
+                print("intake_press: ", DashValues.intake_press)
             
             if event.key == pygame.K_h:
-                DashValues.oil_press += 10
-                if DashValues.oil_press > 100:
-                    DashValues.oil_press = 100
-                print("oil_press: ", DashValues.oil_press)
+                DashValues.engine_load += 10
+                if DashValues.engine_load > 100:
+                    DashValues.engine_load = 100
+                print("engine_load: ", DashValues.engine_load)
             if event.key == pygame.K_n:
-                DashValues.oil_press -= 10
-                if DashValues.oil_press < 0:
-                    DashValues.oil_press = 0
-                print("oil_press: ", DashValues.oil_press)
+                DashValues.engine_load -= 10
+                if DashValues.engine_load < 0:
+                    DashValues.engine_load = 0
+                print("engine_load: ", DashValues.engine_load)
 
             if event.key == pygame.K_j:
-                DashValues.coolant_temp += 10
-                if DashValues.coolant_temp > 150:
-                    DashValues.coolant_temp = 150
-                print("coolant_temp: ", DashValues.coolant_temp)
+                DashValues.intake_temp += 10
+                if DashValues.intake_temp > 150:
+                    DashValues.intake_temp = 150
+                print("intake_temp: ", DashValues.intake_temp)
             if event.key == pygame.K_m:
-                DashValues.coolant_temp -= 10
-                if DashValues.coolant_temp < 0:
-                    DashValues.coolant_temp = 0
-                print("coolant_temp: ", DashValues.coolant_temp)
+                DashValues.intake_temp -= 10
+                if DashValues.intake_temp < 0:
+                    DashValues.intake_temp = 0
+                print("intake_temp: ", DashValues.intake_temp)
 
             if event.key == pygame.K_SEMICOLON:
                 DashValues.throttle_pos += 10
@@ -164,26 +168,26 @@ class DashboardGUI():
                 print("throttle_pos: ", DashValues.throttle_pos)
 
             if event.key == pygame.K_o:
-                DashValues.oil_temp += 10
-                if DashValues.oil_temp > 150:
-                    DashValues.oil_temp = 150
-                print("oil_temp: ", DashValues.oil_temp)
+                DashValues.throttle_actuator += 10
+                if DashValues.throttle_actuator > 150:
+                    DashValues.throttle_actuator = 150
+                print("oil_temp: ", DashValues.throttle_actuator)
             if event.key == pygame.K_p:
-                DashValues.oil_temp -= 10
-                if DashValues.oil_temp < 0:
-                    DashValues.oil_temp = 0
-                print("oil_temp: ", DashValues.oil_temp)
+                DashValues.throttle_actuator -= 10
+                if DashValues.throttle_actuator < 0:
+                    DashValues.throttle_actuator = 0
+                print("oil_temp: ", DashValues.throttle_actuator)
             
-            if event.key == pygame.K_k:
-                DashValues.fuel_press += 10
-                if DashValues.fuel_press > 100:
-                    DashValues.fuel_press = 100
-                print("fuel_press: ", DashValues.fuel_press)
-            if event.key == pygame.K_COMMA:
-                DashValues.fuel_press -= 10
-                if DashValues.fuel_press < 0:
-                    DashValues.fuel_press = 0
-                print("fuel_press: ", DashValues.fuel_press)
+            # if event.key == pygame.K_k:
+            #     DashValues.intake_press += 10
+            #     if DashValues.intake_press > 100:
+            #         DashValues.intake_press = 100
+            #     print("intake_press: ", DashValues.intake_press)
+            # if event.key == pygame.K_COMMA:
+            #     DashValues.intake_press -= 10
+            #     if DashValues.intake_press < 0:
+            #         DashValues.intake_press = 0
+            #     print("intake_press: ", DashValues.intake_press)
             
             if event.key == pygame.K_l:
                 DashValues.battery_volt += 1
@@ -227,17 +231,20 @@ class DashboardGUI():
         text = font.render(str(config.THRTTL_POS_TXT), 0, "white")
         self.window.blit(text, (35, 500))
 
-        text = font.render(str(config.OIL_TEMP_TXT), 0, "white")
+        text = font.render(str(config.THROTTLE_POS), 0, "white")
         self.window.blit(text, (205, 500))
 
-        text = font.render(str(config.OIL_PRESS_TXT), 0, "white")
+        text = font.render(str(config.ENGINE_LOAD), 0, "white")
         self.window.blit(text, (375, 500))
 
         text = font.render(str(config.COOLANT_TEMP_TXT), 0, "white")
         self.window.blit(text, (545, 500))
 
-        text = font.render(str(config.FUEL_PRESS_TXT), 0, "white")
+        text = font.render(str(config.INTAKE_TEMP), 0, "white")
         self.window.blit(text, (735, 500))
+        
+        text = font.render(str(config.INTAKE_PRESS), 0, "white")
+        self.window.blit(text, (735, 545))
 
         text = font.render(str(config.BATT_VLTG_TXT), 0, "white")
         self.window.blit(text, (895, 500))
@@ -275,55 +282,88 @@ class DashboardGUI():
         self.window.blit(rotated_image, rect)
 
     def _draw_speed_indicator(self, speed: DashValues.speed):
-        pass
+        font = pygame.font.Font(config.FONT_NAME, 36)
+
+        speed_text = str(speed)
+        text = font.render(speed_text, 0, "black")
+        if speed < 100:
+            self.window.blit(text, (760, 330))
+        else:
+            self.window.blit(text, (750, 330))
 
     def draw_gear_idicator(self, gear: DashValues.gear):
         font = pygame.font.Font(config.FONT_NAME, 100)
+        if gear:
+            gear_text = str(gear)
+        else:
+            gear_text = "N"
 
-        gear_text = str(DashValues.gear)
         text = font.render(gear_text, 0, "white")
         self.window.blit(text, (500, 200))
     
-    def _draw_engine_temp_gauge(self, engine_temp: DashValues.engine_temp):
-        pass
+    def _draw_engine_temp_gauge(self, engine_temp: DashValues.intake_temp):
+        # needle cords on the gauge = (106, 104)
+        # temp range: 70 - 130 (70, 85, 100, 115, 130)
+        temp_gauge_cords = (200, 370)
+        temp_needle_cords = (53+200, 62+370)
+        temp_zero_offset = 45
+
+        if engine_temp < 70:
+            temp_angle = temp_zero_offset
+        else:
+            temp_angle = temp_zero_offset - 1.7 * (engine_temp - 70)
+
+        image = pygame.image.load(config.TEMP_GAUGE_PATH)
+        self.window.blit(image, temp_gauge_cords)
+
+        image = pygame.image.load(config.TEMP_NEEDLE_PATH)
+        rotated_image, rect = self.rotatePivoted(image, -temp_angle, temp_needle_cords)
+        self.window.blit(rotated_image, rect)
     
     def _draw_fuel_level_gauge(self, fuel_level: DashValues.fuel_level):
         pass
     
-    def _draw_throttle_pos_indicator(self, throttle_pos: DashValues.throttle_pos):
+    def _draw_throttle_actuator_indicator(self, throttle_pos: DashValues.throttle_actuator):
         throttle_pos_text = str(throttle_pos)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(throttle_pos_text, 0, "white")
         self.window.blit(text, (65, 530))
 
-    def _draw_oil_temp_indicator(self, oil_temp: DashValues.oil_temp):
+    def _draw_throttle_pos_indicator(self, oil_temp: DashValues.throttle_pos):
         oil_temp_text = str(oil_temp)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(oil_temp_text, 0, "white")
         self.window.blit(text, (235, 530))
 
-    def _draw_oil_press_indicator(self, oil_press: DashValues.oil_press):
+    def _draw_engine_load_indicator(self, oil_press: DashValues.engine_load):
         oil_press_text = str(oil_press)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(oil_press_text, 0, "white")
         self.window.blit(text, (391, 530))
 
-    def _draw_coolant_temp_indicator(self, coolant_temp: DashValues.coolant_temp):
+    def _draw_coolant_temp_indicator(self, coolant_temp: DashValues.intake_temp):
         coolant_temp_text = str(coolant_temp)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(coolant_temp_text, 0, "white")
         self.window.blit(text, (590, 530))
 
-    def _draw_fuel_press_indicator(self, fuel_press: DashValues.fuel_press):
+    def _draw_intake_temp_indicator(self, intake_temp: DashValues.intake_temp):
+        intake_temp_text = str(intake_temp)
+
+        font = pygame.font.Font(config.FONT_NAME, 36)
+        text = font.render(intake_temp_text, 0, "white")
+        self.window.blit(text, (755, 511))
+
+    def _draw_intake_press_indicator(self, fuel_press: DashValues.intake_press):
         fuel_press_text = str(fuel_press)
 
         font = pygame.font.Font(config.FONT_NAME, 36)
         text = font.render(fuel_press_text, 0, "white")
-        self.window.blit(text, (755, 530))
+        self.window.blit(text, (755, 556))
 
     def _draw_battery_volt_indicator(self, battery_volt: DashValues.battery_volt):
         battery_volt_text = str(battery_volt)
@@ -335,7 +375,7 @@ class DashboardGUI():
     def draw_left_gauge(self, dash_vals: DashValues):
         self._draw_rpm_gauge(dash_vals.rpm)
         self._draw_fuel_level_gauge(dash_vals.fuel_level)
-        self._draw_engine_temp_gauge(dash_vals.engine_temp)
+        self._draw_engine_temp_gauge(dash_vals.intake_temp)
 
     def draw_right_gauge(self, dash_vals: DashValues):
         self._draw_speed_gauge(dash_vals.speed)
@@ -412,11 +452,14 @@ class DashboardGUI():
         self._draw_right_blinker(dash_vals.right_blinker)
     
     def draw_diag_idicators(self, dash_vals: DashValues):
+        # throttle actuator, throttle position, engine load, 
+        # coolant temp, intake temp/intake pressure, battery voltage
+        self._draw_throttle_actuator_indicator(dash_vals.throttle_actuator)
         self._draw_throttle_pos_indicator(dash_vals.throttle_pos)
-        self._draw_oil_temp_indicator(dash_vals.oil_temp)
-        self._draw_oil_press_indicator(dash_vals.oil_press)
+        self._draw_engine_load_indicator(dash_vals.engine_load)
         self._draw_coolant_temp_indicator(dash_vals.coolant_temp)
-        self._draw_fuel_press_indicator(dash_vals.fuel_press)
+        self._draw_intake_temp_indicator(dash_vals.intake_temp)
+        self._draw_intake_press_indicator(dash_vals.intake_press)
         self._draw_battery_volt_indicator(dash_vals.battery_volt)
 
     def _rpm_to_lights(self, rpm: DashValues.rpm):
@@ -516,3 +559,5 @@ if __name__ == "__main__":
         dashboard.draw_dash(DashValues)
         pygame.display.update()
         dashboard.clock.tick(30)
+
+# throttle actuator, throttle position, engine load, coolant temp, intake temp/intake pressure, battery voltage
