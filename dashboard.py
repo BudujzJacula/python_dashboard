@@ -7,7 +7,7 @@ SCREEN_WIDTH = 1024
 
 @dataclass
 class DashValues:
-    rpm: int = 0
+    rpm: int = 4400
     speed: int = 0
     gear: int = 0
     # engine_temp: int = 0 # engine temp is coolant temp
@@ -473,9 +473,10 @@ class DashboardGUI():
         # print(lights)
         for i in range(1, lights + 1):
             self.window.blit(image, (start_cords[0] + (i*40), start_cords[1]))
+            self.window.blit(image, (SCREEN_WIDTH - (start_cords[0] + (i*40)), start_cords[1]))
 
     def draw_limiter_lights(self, rpm: DashValues.rpm):
-        nr_of_limit_lights = 18
+        nr_of_limit_lights = 19
         light_spacing = 40
         offset = 150
 
@@ -493,8 +494,8 @@ class DashboardGUI():
         # print("lights: ", greens, " ", oranges, " ", "rpm: ", reds, rpm, "angle: ", rpm / 50)
 
         # zero out the lights
-        for i in range(nr_of_limit_lights):
-            self.window.blit(grey_light, (i*light_spacing + offset, 10))
+        # for i in range(nr_of_limit_lights):
+        #     self.window.blit(grey_light, (i*light_spacing + offset, 10))
 
         # draw the lights
         if not(greens):
@@ -511,7 +512,6 @@ class DashboardGUI():
             return
         else:
             self._turn_on_light(reds, config.RED_CORDS, red_light)
-        # TODO: dodac mirror() do limit lights
 
     def draw_dash(self, dash_vals: DashValues):
         self.draw_limiter_lights(dash_vals.rpm)
