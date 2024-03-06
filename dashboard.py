@@ -114,14 +114,14 @@ class DashboardGUI():
             
             if event.key == pygame.K_f:
                 DashValues.coolant_temp += 5
-                if DashValues.intake_temp > 130:
-                    DashValues.intake_temp = 130
-                print("coolant_temp: ", DashValues.intake_temp)
+                if DashValues.coolant_temp > 130:
+                    DashValues.coolant_temp = 130
+                print("coolant_temp: ", DashValues.coolant_temp)
             if event.key == pygame.K_v:
-                DashValues.intake_temp-= 5
-                if DashValues.intake_temp < 0:
-                    DashValues.intake_temp = 0
-                print("coolant_temp: ", DashValues.intake_temp)
+                DashValues.coolant_temp-= 5
+                if DashValues.coolant_temp < 0:
+                    DashValues.coolant_temp = 0
+                print("coolant_temp: ", DashValues.coolant_temp)
             
             if event.key == pygame.K_g:
                 DashValues.intake_press += 10
@@ -375,7 +375,7 @@ class DashboardGUI():
     def draw_left_gauge(self, dash_vals: DashValues):
         self._draw_rpm_gauge(dash_vals.rpm)
         self._draw_fuel_level_gauge(dash_vals.fuel_level)
-        self._draw_engine_temp_gauge(dash_vals.intake_temp)
+        self._draw_engine_temp_gauge(dash_vals.coolant_temp)
 
     def draw_right_gauge(self, dash_vals: DashValues):
         self._draw_speed_gauge(dash_vals.speed)
