@@ -431,7 +431,7 @@ def request():
         DashValues.new_data = True
 
         # TODO dodac mierzenie czasu petli i wyswietlanie czestotliwosci odswiezania
-        time.sleep(0.1)
+        # time.sleep(0.1)
 
 def connect():
     print("Connecting...")
@@ -459,8 +459,16 @@ if __name__ == "__main__":
             # dashboard._check_keyboard()
 
         if DashValues.new_data:
+            start_time = time.time()
+
             DashValues.new_data = False
             dashboard._print_background()
             dashboard.draw_dash(DashValues)
             pygame.display.update()
             dashboard.clock.tick(30)
+
+            stop_time = time.time()
+            loop_time = stop_time - start_time
+            loop_time = round(loop_time * 1000, 2)
+            fps = round(1000 / loop_time, 2)
+            print(f'loop time: {loop_time}, fps: {fps}')
