@@ -12,8 +12,9 @@ import sys
 # logger = logging.basicConfig(format = 'log_dashboard:%(levelname)s:%(filename)s:%(funcName)s:%(message)s',
                             # level=logging_level)
 # obd.logger.setLevel(obd.logging.DEBUG)
-
 connection_obj = None
+is_running = True
+
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
@@ -85,11 +86,11 @@ class DashboardGUI():
 
     def _check_quit(self):
         if event.type == pygame.QUIT:
-            pygame.quit()
             print("Quitting...")
-            # BUG: sys.exit() doesn't work
+            global is_running
+            is_running = False
+            pygame.quit()
             sys.exit()
-            # quit()
     
     def _print_background(self):
         # black background
@@ -395,8 +396,7 @@ class DashboardGUI():
         self.draw_warning_lights(dash_vals)
 
 def request():
-    while True:
-        # TODO: wrzucic gotowe komendy do listy albo do dataclassy i loopowac po niej zamiast pisac wszystko na piechote
+    while is_running:
         val_rpm = connection_obj.query(rpm)
         val_speed = connection_obj.query(speed)
         val_engine_temp = connection_obj.query(engine_temp)
@@ -449,7 +449,7 @@ if __name__ == "__main__":
 
     dashboard = DashboardGUI()
 
-    t1 = threading.Thread(target = request)
+    t1 = threading.Thread(target = request, name="Background")
     t1.start()
 
     while True:
