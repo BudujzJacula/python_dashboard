@@ -1,6 +1,6 @@
 # dashboard's config
 
-REFRESH_RATE = 20
+REFRESH_RATE = 10
 
 # font name
 FONT_NAME = "Lato-Regular.ttf"

@@ -395,59 +395,65 @@ class DashboardGUI():
         self.draw_blinkers(dash_vals)
         self.draw_warning_lights(dash_vals)
 
-def request():
-    while is_running:
-        val_rpm = connection_obj.query(rpm)
-        val_speed = connection_obj.query(speed)
-        val_engine_temp = connection_obj.query(engine_temp)
-        val_throttle_actuator = connection_obj.query(throttle_actuator)
-        val_throttle_pos = connection_obj.query(throttle_pos)
-        val_throttle_pos_b = connection_obj.query(throttle_pos_b)
+class SerialConnection:
+    def __init__(self) -> None:
+        pass
 
-        val_battery_volt = connection_obj.query(battery_volt)
+    def request(self):
+        while is_running:
+            self.val_rpm = connection_obj.query(rpm)
+            self.val_speed = connection_obj.query(speed)
+            self.val_engine_temp = connection_obj.query(engine_temp)
+            self.val_throttle_actuator = connection_obj.query(throttle_actuator)
+            self.val_throttle_pos = connection_obj.query(throttle_pos)
+            self.val_throttle_pos_b = connection_obj.query(throttle_pos_b)
 
-        # val_val_pids = connection.query(pids)
-        val_status = connection_obj.query(status)
-        val_fuel_status = connection_obj.query(fuel_status)
-        val_engine_load = connection_obj.query(engine_load)
+            self.val_battery_volt = connection_obj.query(battery_volt)
 
-        val_intake_temp = connection_obj.query(intake_temp)
-        val_intake_press = connection_obj.query(intake_press)
+            # val_val_pids = connection.query(pids)
+            self.val_status = connection_obj.query(status)
+            self.val_fuel_status = connection_obj.query(fuel_status)
+            self.val_engine_load = connection_obj.query(engine_load)
 
-        val_obd_compliance = connection_obj.query(obd_compliance)
+            self.val_intake_temp = connection_obj.query(intake_temp)
+            self.val_intake_press = connection_obj.query(intake_press)
 
-        # pids = val_val_pids.value
+            self.val_obd_compliance = connection_obj.query(obd_compliance)
 
-        DashValues.rpm = round(val_rpm.value.m)
-        DashValues.speed = round(val_speed.value.m)
-        DashValues.coolant_temp = val_engine_temp.value.m
-        DashValues.throttle_actuator = int(val_throttle_actuator.value)
-        DashValues.throttle_pos = int(val_throttle_pos.value)
-        DashValues.throttle_pos_b = int(val_throttle_pos_b.value)
-        DashValues.battery_volt = val_battery_volt.value.m
-        DashValues.engine_load = int(val_engine_load.value)
-        DashValues.intake_temp = val_intake_temp.value.m
-        DashValues.intake_press = val_intake_press.value.m
-        DashValues.new_data = True
+            # pids = val_val_pids.value
 
-def connect():
-    print("Connecting...")
-    global connection_obj
-    connection_obj = obd.OBD(portstr='COM15', baudrate=38400)
-# TODO connect() i request zamknac w klasie
+            DashValues.rpm = round(self.val_rpm.value.m)
+            DashValues.speed = round(self.val_speed.value.m)
+            DashValues.coolant_temp = self.val_engine_temp.value.m
+            DashValues.throttle_actuator = int(self.val_throttle_actuator.value)
+            DashValues.throttle_pos = int(self.val_throttle_pos.value)
+            DashValues.throttle_pos_b = int(self.val_throttle_pos_b.value)
+            DashValues.battery_volt = self.val_battery_volt.value.m
+            DashValues.engine_load = int(self.val_engine_load.value)
+            DashValues.intake_temp = self.val_intake_temp.value.m
+            DashValues.intake_press = self.val_intake_press.value.m
+            DashValues.new_data = True
+
+    def connect(self):
+        print("Connecting...")
+        global connection_obj
+        connection_obj = obd.OBD(portstr='COM15', baudrate=38400)
 
 if __name__ == "__main__":
-    t_conn = threading.Thread(target = connect)
+    serial = SerialConnection()
+
+    t_conn = threading.Thread(target = serial.connect)
     t_conn.start()
     t_conn.join(timeout=15)
+
     if connection_obj:
-        print("connection: ", connection_obj)
+        print("Connection successful!")
     else:
-        print("Connection failed")
+        print("Connection failed!")
 
     dashboard = DashboardGUI()
 
-    t1 = threading.Thread(target = request, name="Background")
+    t1 = threading.Thread(target = serial.request, name="Background")
     t1.start()
 
     start_time = round(time.time(), 2)
