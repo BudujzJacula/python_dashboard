@@ -14,7 +14,7 @@ import sys
 # obd.logger.setLevel(obd.logging.DEBUG)
 connection_obj = None
 is_running = True
-
+time_past = False
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
@@ -430,13 +430,11 @@ def request():
         DashValues.intake_press = val_intake_press.value.m
         DashValues.new_data = True
 
-        # TODO dodac mierzenie czasu petli i wyswietlanie czestotliwosci odswiezania
-        # time.sleep(0.1)
-
 def connect():
     print("Connecting...")
     global connection_obj
     connection_obj = obd.OBD(portstr='COM15', baudrate=38400)
+# TODO connect() i request zamknac w klasie
 
 if __name__ == "__main__":
     t_conn = threading.Thread(target = connect)
@@ -452,23 +450,25 @@ if __name__ == "__main__":
     t1 = threading.Thread(target = request, name="Background")
     t1.start()
 
+    start_time = round(time.time(), 2)
+
     while True:
         for event in pygame.event.get():
             dashboard._check_quit()
-            # dashboard._check_arrow_keys()
-            # dashboard._check_keyboard()
 
-        if DashValues.new_data:
-            start_time = time.time()
+        current_time = round(time.time(), 2)
+        difference = round(current_time - start_time, 2)
+        # print("current time: ", current_time, " start time: ", start_time, " difference: ", difference)
 
+        if difference >= 1 / config.REFRESH_RATE:
+            start_time = current_time
+            time_past = True
+
+        if DashValues.new_data and time_past:
             DashValues.new_data = False
+            time_past = False
+
             dashboard._print_background()
             dashboard.draw_dash(DashValues)
             pygame.display.update()
             dashboard.clock.tick(30)
-
-            stop_time = time.time()
-            loop_time = stop_time - start_time
-            loop_time = round(loop_time * 1000, 2)
-            fps = round(1000 / loop_time, 2)
-            print(f'loop time: {loop_time}, fps: {fps}')
