@@ -1,6 +1,5 @@
 import obd
-
-connection = obd.OBD(portstr='COM15', baudrate=38400)
+import sys
 
 cmds = (
     obd.commands.PIDS_A,
@@ -105,8 +104,42 @@ commands = (
     obd.commands.FUEL_RATE,
 )
 
+valid_baudrates = [9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000]
+
+def validate_input():
+    # check if there are two arguments
+    if len(sys.argv) != 3:
+        print("Invalid number of arguments: ", len(sys.argv))
+        print("arguments: ", sys.argv)
+        print("Usage: python obd_pids_scanner.py <com_port> <baudrate>")
+        sys.exit(1)
+    
+    # check if com port name is valid
+    if "COM" in sys.argv[1]:
+        com_port = sys.argv[1]
+        print("port: ", com_port)
+    else:
+        print("Invalid com port: ", sys.argv[1])
+        print("Com port should look like: COM1, COM2")
+        sys.exit(1)
+
+    # check if baudrate is a number if yes, convert to int
+    if sys.argv[2].isnumeric() and int(sys.argv[2]) in valid_baudrates:
+        baudrate = int(sys.argv[2])
+        print("baudrate: ", baudrate)
+    else:
+        print("Invalid baudrate: ", sys.argv[2])
+        print("Baudrate must be on of the following: 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000")
+        sys.exit(1)
+
+    return com_port, baudrate
+
 def main():
-    for val in commands:
+    com_port, baudrate = validate_input()
+
+    connection = obd.OBD(portstr=com_port, baudrate=baudrate)
+
+    for val in cmds:
         print(val)
         val_cmd = connection.query(val)
         if val_cmd.value is not None:
