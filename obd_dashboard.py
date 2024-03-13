@@ -49,6 +49,8 @@ intake_press = obd.commands.INTAKE_PRESSURE
 obd_compliance = obd.commands.OBD_COMPLIANCE
 fuel_rail_press = obd.commands.FUEL_RAIL_PRESSURE_VAC
 
+valid_baudrates = [9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000]
+
 @dataclass
 class DashValues:
     rpm: int = 4400
@@ -86,7 +88,7 @@ class DashboardGUI():
 
     def _check_quit(self):
         if event.type == pygame.QUIT:
-            print("Quitting...")
+            print("Quitting")
             global is_running
             is_running = False
             pygame.quit()
@@ -434,15 +436,45 @@ class SerialConnection:
             DashValues.intake_press = self.val_intake_press.value.m
             DashValues.new_data = True
 
-    def connect(self):
+    def connect(self, com_port: str, baudrate: int):
         print("Connecting...")
         global connection_obj
-        connection_obj = obd.OBD(portstr='COM15', baudrate=38400)
+        connection_obj = obd.OBD(portstr=com_port, baudrate=baudrate)
+
+def validate_input():
+    # check if there are two arguments
+    if len(sys.argv) != 3:
+        print("Invalid number of arguments: ", len(sys.argv))
+        print("arguments: ", sys.argv)
+        print("Usage: python obd_pids_scanner.py <com_port> <baudrate>")
+        sys.exit(1)
+    
+    # check if com port name is valid
+    if "COM" in sys.argv[1]:
+        com_port = sys.argv[1]
+        print("port: ", com_port)
+    else:
+        print("Invalid com port: ", sys.argv[1])
+        print("Com port should look like: COM1, COM2")
+        sys.exit(1)
+
+    # check if baudrate is a number if yes, convert to int
+    if sys.argv[2].isnumeric() and int(sys.argv[2]) in valid_baudrates:
+        baudrate = int(sys.argv[2])
+        print("baudrate: ", baudrate)
+    else:
+        print("Invalid baudrate: ", sys.argv[2])
+        print("Baudrate must be on of the following: 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000")
+        sys.exit(1)
+
+    return com_port, baudrate
 
 if __name__ == "__main__":
+    com_port, baudrate = validate_input()
+
     serial = SerialConnection()
 
-    t_conn = threading.Thread(target = serial.connect)
+    t_conn = threading.Thread(target = serial.connect, args=(com_port, baudrate,))
     t_conn.start()
     t_conn.join(timeout=15)
 
