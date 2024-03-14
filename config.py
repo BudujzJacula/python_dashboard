@@ -42,7 +42,7 @@ LIMIT_LIGHT_RED = GRAPHICS_PATH + "limit_light_red.png"
 
 SPEED_GAUGE_PATH = GRAPHICS_PATH + "speed_gauge.png"
 SPEED_NEEDLE_PATH = GRAPHICS_PATH + "needle_2.png"
-RPM_GAUGE_PATH = GRAPHICS_PATH + "rpm_gauge.jpg"
+RPM_GAUGE_PATH = GRAPHICS_PATH + "rpm_gauge.png"
 RPM_NEEDLE_PATH = GRAPHICS_PATH + "rpm_needle.png"
 TEMP_GAUGE_PATH = GRAPHICS_PATH + "temp_gauge.png"
 TEMP_NEEDLE_PATH = GRAPHICS_PATH + "temp_needle.png"
